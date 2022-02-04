@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 9999:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: sqlWordpress
+      WORDPRESS_DB_PASSWORD: SQLpass
+      WORDPRESS_DB_NAME: site
+    volumes:
+      - .:/var/www/html
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: site
+      MYSQL_USER: sqlWordpress
+      MYSQL_PASSWORD: SQLpass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - dbCVSite:/var/lib/mysql
+
+volumes:
+  wordpress:
+  dbCVSite:
